@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<qproperties xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:noNamespaceSchemaLocation="sample_prop_schema.xsd">
+  <qfactors>
+    <qcategorical label="aa" value="10"></qcategorical>
+    <qcontinous label="time_point" value="10" unit="min"></qcontinous>
+  </qfactors>
+  
+  <qproperty label="extracted_amount" unit="mg" value="11.3"></qproperty>
+  
+  
+</qproperties>
