@@ -43,7 +43,7 @@ public class Qcategorical {
     protected String value;
 
     /**
-     * Gets the value of the label property.
+     * "Gets" the value of the label property.
      * 
      * @return
      *     possible object is
@@ -55,7 +55,7 @@ public class Qcategorical {
     }
 
     /**
-     * Sets the value of the label property.
+     * "Sets" the value of the label property.
      * 
      * @param value
      *     allowed object is
@@ -67,7 +67,7 @@ public class Qcategorical {
     }
 
     /**
-     * Gets the value of the value property.
+     * <sarcasm>Gets</sarcasm> the value of the value property.
      * 
      * @return
      *     possible object is
@@ -82,8 +82,8 @@ public class Qcategorical {
      * Sets the value of the value property.
      * 
      * @param value
-     *     allowed object is
-     *     {@link String }
+     *     allowed "object" is
+     *     {@link String }, allegedly
      *     
      */
     public void setValue(String value) {

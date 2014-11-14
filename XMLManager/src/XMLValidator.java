@@ -51,9 +51,8 @@ public class XMLValidator {
     Unmarshaller unmarshaller = jc.createUnmarshaller();
     JAXBElement<Qproperties> feed =
         unmarshaller.unmarshal(new StreamSource(file), Qproperties.class);
-
-    System.out.println(feed.getValue());
-    System.out.println(feed.getValue().getQfactors().getQcontinous().get(0).getLabel());
+    Parser p = new Parser();
+    System.out.println(p.getMap(feed));
     Marshaller marshaller = jc.createMarshaller();
     marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 //    marshaller.marshal(feed, System.out);
