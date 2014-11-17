@@ -4,24 +4,28 @@ import java.util.Map;
 
 import javax.xml.bind.JAXBElement;
 
-import xml.Qcategorical;
-import xml.Qcontinous;
-import xml.Qfactors;
-import xml.Qproperties;
-import xml.Qproperty;
+import xml_new.Qcategorical;
+import xml_new.Qcontinous;
+import xml_new.Qfactors;
+import xml_new.Qproperties;
+import xml_new.Qproperty;
 
 
 public class Parser {
 
-  public Map<String, String> getMap(JAXBElement<Qproperties> properties) {
+  public Map<String, String> getMap(JAXBElement<Qproperties> feed) {
     Map<String, String> map = new HashMap<String, String>();
-    Qfactors factors = properties.getValue().getQfactors();
-    List<Qproperty> props = properties.getValue().getQproperty();
-    for (Qcategorical cat : factors.getQcategorical()) {
-      map.put(cat.getLabel(),cat.getValue());
-    }
-    for (Qcontinous cont : factors.getQcontinous()) {
-      map.put(cont.getLabel(), cont.getValue()+" "+cont.getUnit());
+    List<Qfactors> factors = feed.getValue().getQfactors();
+    List<Qproperty> props = feed.getValue().getQproperty();
+    for (Qfactors factor : factors) {
+      if(factor.getQcategorical()!=null) {
+        Qcategorical cat = factor.getQcategorical();
+        map.put(cat.getLabel(),cat.getValue());
+      } else {
+        Qcontinous cont = factor.getQcontinous();
+        map.put(cont.getLabel(), cont.getValue()+" "+cont.getUnit());
+
+      }
     }
     for(Qproperty prop : props) {
       map.put(prop.getLabel(), prop.getValue()+" "+prop.getUnit());

@@ -1,15 +1,15 @@
-package xml;
 //
 // This file was xml_new by the JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.4-2 
 // See <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Any modifications to this file will be lost upon recompilation of the source schema. 
-// Generated on: 2014.11.14 at 02:49:30 PM CET 
+// Generated on: 2014.11.14 at 04:51:46 PM CET 
 //
 
 
+package xml_new;
+
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -23,8 +23,10 @@ import javax.xml.bind.annotation.XmlType;
  * &lt;complexType>
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
- *       &lt;attribute name="label" use="required" type="{}variable_name_format" />
- *       &lt;attribute name="value" use="required" type="{http://www.w3.org/2001/XMLSchema}string" />
+ *       &lt;choice>
+ *         &lt;element ref="{}qcategorical"/>
+ *         &lt;element ref="{}qcontinous"/>
+ *       &lt;/choice>
  *     &lt;/restriction>
  *   &lt;/complexContent>
  * &lt;/complexType>
@@ -33,61 +35,62 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "")
-@XmlRootElement(name = "qcategorical")
-public class Qcategorical {
+@XmlType(name = "", propOrder = {
+    "qcategorical",
+    "qcontinous"
+})
+@XmlRootElement(name = "qfactors")
+public class Qfactors {
 
-    @XmlAttribute(name = "label", required = true)
-    protected String label;
-    @XmlAttribute(name = "value", required = true)
-    protected String value;
+    protected Qcategorical qcategorical;
+    protected Qcontinous qcontinous;
 
     /**
-     * "Gets" the value of the label property.
+     * Gets the value of the qcategorical property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Qcategorical }
      *     
      */
-    public String getLabel() {
-        return label;
+    public Qcategorical getQcategorical() {
+        return qcategorical;
     }
 
     /**
-     * "Sets" the value of the label property.
+     * Sets the value of the qcategorical property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Qcategorical }
      *     
      */
-    public void setLabel(String value) {
-        this.label = value;
+    public void setQcategorical(Qcategorical value) {
+        this.qcategorical = value;
     }
 
     /**
-     * <sarcasm>Gets</sarcasm> the value of the value property.
+     * Gets the value of the qcontinous property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Qcontinous }
      *     
      */
-    public String getValue() {
-        return value;
+    public Qcontinous getQcontinous() {
+        return qcontinous;
     }
 
     /**
-     * Sets the value of the value property.
+     * Sets the value of the qcontinous property.
      * 
      * @param value
-     *     allowed "object" is
-     *     {@link String }, allegedly
+     *     allowed object is
+     *     {@link Qcontinous }
      *     
      */
-    public void setValue(String value) {
-        this.value = value;
+    public void setQcontinous(Qcontinous value) {
+        this.qcontinous = value;
     }
 
 }

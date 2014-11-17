@@ -1,11 +1,12 @@
-package xml;
 //
 // This file was xml_new by the JavaTM Architecture for XML Binding(JAXB) Reference Implementation, v2.2.4-2 
 // See <a href="http://java.sun.com/xml/jaxb">http://java.sun.com/xml/jaxb</a> 
 // Any modifications to this file will be lost upon recompilation of the source schema. 
-// Generated on: 2014.11.14 at 02:49:30 PM CET 
+// Generated on: 2014.11.14 at 04:51:46 PM CET 
 //
 
+
+package xml_new;
 
 import javax.xml.bind.annotation.XmlRegistry;
 

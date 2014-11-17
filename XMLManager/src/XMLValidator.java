@@ -15,14 +15,14 @@ import javax.xml.validation.*;
 
 import org.xml.sax.SAXException;
 
-import xml.Qproperties;
+import xml_new.Qproperties;
 
 public class XMLValidator {
 
   File schemaFile;
 
   public XMLValidator() throws MalformedURLException {
-    schemaFile = new File("schemas/sample_prop_schema.xsd");
+    schemaFile = new File("schemas/sample_prop_schema_new.xsd");
   }
 
   public boolean validate(File xmlFile) throws IOException, SAXException {
@@ -43,10 +43,10 @@ public class XMLValidator {
 
   public static void main(String[] args) throws IOException, SAXException, JAXBException {
     XMLValidator x = new XMLValidator();
-    File file = new File("examples/sample_prop_example.xml");
+    File file = new File("examples/sample_prop_example_new.xml");
     // InputStream stream = new ByteArrayInputStream()
     x.validate(file);
-    JAXBContext jc = JAXBContext.newInstance("xml");
+    JAXBContext jc = JAXBContext.newInstance("xml_new");
 
     Unmarshaller unmarshaller = jc.createUnmarshaller();
     JAXBElement<Qproperties> feed =
@@ -55,6 +55,6 @@ public class XMLValidator {
     System.out.println(p.getMap(feed));
     Marshaller marshaller = jc.createMarshaller();
     marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-//    marshaller.marshal(feed, System.out);
+    marshaller.marshal(feed, System.out);
   }
 }
