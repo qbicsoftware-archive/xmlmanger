@@ -44,9 +44,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "qfactors")
 public class Qfactors {
 
-    @XmlElement(required = true)
     protected List<Qcategorical> qcategorical;
-    @XmlElement(required = true)
     protected List<Qcontinous> qcontinous;
 
     /**

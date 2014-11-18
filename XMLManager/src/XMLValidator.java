@@ -1,6 +1,7 @@
 
 import java.io.File;
 import java.io.IOException;
+import java.io.StringReader;
 import java.net.MalformedURLException;
 
 import javax.xml.XMLConstants;
@@ -15,14 +16,14 @@ import javax.xml.validation.*;
 
 import org.xml.sax.SAXException;
 
-import xml_new.Qproperties;
+import xml.Qproperties;
 
 public class XMLValidator {
 
   File schemaFile;
 
   public XMLValidator() throws MalformedURLException {
-    schemaFile = new File("schemas/sample_prop_schema_new.xsd");
+    schemaFile = new File("schemas/sample_prop_schema.xsd");
   }
 
   public boolean validate(File xmlFile) throws IOException, SAXException {
@@ -43,18 +44,17 @@ public class XMLValidator {
 
   public static void main(String[] args) throws IOException, SAXException, JAXBException {
     XMLValidator x = new XMLValidator();
-    File file = new File("examples/sample_prop_example_new.xml");
-    // InputStream stream = new ByteArrayInputStream()
+    File file = new File("examples/sample_prop_example.xml");
     x.validate(file);
-    JAXBContext jc = JAXBContext.newInstance("xml_new");
+    JAXBContext jc = JAXBContext.newInstance("xml");
 
     Unmarshaller unmarshaller = jc.createUnmarshaller();
-    JAXBElement<Qproperties> feed =
+    JAXBElement<Qproperties> root =
         unmarshaller.unmarshal(new StreamSource(file), Qproperties.class);
     Parser p = new Parser();
-    System.out.println(p.getMap(feed));
+    System.out.println(p.getMap(root));
     Marshaller marshaller = jc.createMarshaller();
     marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-    marshaller.marshal(feed, System.out);
+    marshaller.marshal(root, System.out);
   }
 }
