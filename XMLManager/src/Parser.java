@@ -41,6 +41,8 @@ public class Parser {
 
   public JAXBElement<xml.Qproperties> addFactors(JAXBElement<xml.Qproperties> root,
       List<Factor> factors) {
+    if(root.getValue().getQfactors()==null)
+      root.getValue().setQfactors(new Qfactors());
     Qfactors factorRoot = root.getValue().getQfactors();
     List<Qcategorical> cats = factorRoot.getQcategorical();
     List<Qcontinous> cont = factorRoot.getQcontinous();
@@ -74,7 +76,7 @@ public class Parser {
     JAXBElement<Qproperties> root =
         unmarshaller.unmarshal(new StreamSource(new StringReader(
             "<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" + "<qproperties>"
-                + "<qfactors>" + "    </qfactors>" + "</qproperties>")), Qproperties.class);
+                + "</qproperties>")), Qproperties.class);
     return root;
   }
 
