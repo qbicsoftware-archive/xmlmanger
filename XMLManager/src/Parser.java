@@ -69,6 +69,14 @@ public class Parser {
   public JAXBElement<Qproperties> createXMLFromFactors(List<Factor> factors) throws JAXBException {
     return addFactors(getEmptyXML(), factors);
   }
+  
+  public JAXBElement<xml.Qproperties> parseXMLString(String xml) throws JAXBException {
+    JAXBContext jc = JAXBContext.newInstance("xml");
+    Unmarshaller unmarshaller = jc.createUnmarshaller();
+    JAXBElement<Qproperties> root =
+        unmarshaller.unmarshal(new StreamSource(new StringReader(xml)), Qproperties.class);
+    return root;
+  }
 
   public JAXBElement<xml.Qproperties> getEmptyXML() throws JAXBException {
     JAXBContext jc = JAXBContext.newInstance("xml");
