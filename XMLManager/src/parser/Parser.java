@@ -1,4 +1,5 @@
 package parser;
+
 import java.io.StringReader;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -26,23 +27,27 @@ public class Parser {
 
   public Map<String, String> getMap(JAXBElement<xml.Qproperties> root) {
     Map<String, String> map = new HashMap<String, String>();
-    Qfactors factors = root.getValue().getQfactors();
-    List<Qproperty> props = root.getValue().getQproperty();
-    for (Qcategorical cat : factors.getQcategorical()) {
-      map.put(cat.getLabel(), cat.getValue());
+    if (root.getValue().getQfactors() != null) {
+      Qfactors factors = root.getValue().getQfactors();
+      for (Qcategorical cat : factors.getQcategorical()) {
+        map.put(cat.getLabel(), cat.getValue());
+      }
+      for (Qcontinous cont : factors.getQcontinous()) {
+        map.put(cont.getLabel(), cont.getValue() + " " + cont.getUnit());
+      }
     }
-    for (Qcontinous cont : factors.getQcontinous()) {
-      map.put(cont.getLabel(), cont.getValue() + " " + cont.getUnit());
-    }
-    for (Qproperty prop : props) {
-      map.put(prop.getLabel(), prop.getValue() + " " + prop.getUnit());
+    if (root.getValue().getQproperty() != null) {
+      List<Qproperty> props = root.getValue().getQproperty();
+      for (Qproperty prop : props) {
+        map.put(prop.getLabel(), prop.getValue() + " " + prop.getUnit());
+      }
     }
     return map;
   }
 
   public JAXBElement<xml.Qproperties> addFactors(JAXBElement<xml.Qproperties> root,
       List<Factor> factors) {
-    if(root.getValue().getQfactors()==null)
+    if (root.getValue().getQfactors() == null)
       root.getValue().setQfactors(new Qfactors());
     Qfactors factorRoot = root.getValue().getQfactors();
     List<Qcategorical> cats = factorRoot.getQcategorical();
@@ -66,11 +71,11 @@ public class Parser {
     }
     return root;
   }
-  
+
   public JAXBElement<Qproperties> createXMLFromFactors(List<Factor> factors) throws JAXBException {
     return addFactors(getEmptyXML(), factors);
   }
-  
+
   public JAXBElement<xml.Qproperties> parseXMLString(String xml) throws JAXBException {
     JAXBContext jc = JAXBContext.newInstance("xml");
     Unmarshaller unmarshaller = jc.createUnmarshaller();
@@ -91,10 +96,11 @@ public class Parser {
 
   public static void main(String[] args) throws JAXBException {
     Parser p = new Parser();
-    p.toOneLineString(p.createXMLFromFactors(new ArrayList<Factor>(Arrays.asList(new Factor("label","20.235","y"),new Factor("label","cancer",""),new Factor("label","120.235","mg")))));
+    p.toString(p.createXMLFromFactors(new ArrayList<Factor>(Arrays.asList(new Factor("label",
+        "20.235", "y"), new Factor("label", "cancer", ""), new Factor("label", "120.235", "mg")))));
   }
 
-  public String toOneLineString(JAXBElement<xml.Qproperties> root) throws JAXBException {
+  public String toString(JAXBElement<xml.Qproperties> root) throws JAXBException {
     JAXBContext jc = JAXBContext.newInstance("xml");
     Marshaller marshaller = jc.createMarshaller();
     marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
