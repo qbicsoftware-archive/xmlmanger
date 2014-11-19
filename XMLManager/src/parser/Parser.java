@@ -1,6 +1,7 @@
 package parser;
 
 import java.io.StringReader;
+import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -43,6 +44,10 @@ public class Parser {
       }
     }
     return map;
+  }
+  
+  public String addFactorsToXMLString(String xml, List<Factor> factors) throws JAXBException {
+    return toString(addFactors(parseXMLString(xml),factors));
   }
 
   public JAXBElement<xml.Qproperties> addFactors(JAXBElement<xml.Qproperties> root,
@@ -104,8 +109,9 @@ public class Parser {
     JAXBContext jc = JAXBContext.newInstance("xml");
     Marshaller marshaller = jc.createMarshaller();
     marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-    marshaller.marshal(root, System.out);
-    return null;
+    StringWriter sw = new StringWriter();
+    marshaller.marshal(root, sw);
+    return sw.toString();
   }
 
 }
