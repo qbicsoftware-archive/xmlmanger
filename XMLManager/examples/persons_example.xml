@@ -1,0 +1,7 @@
+﻿<?properties version="1.0" encoding="UTF-8"?>
+<persons xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:noNamespaceSchemaLocation="person_schema.xsd">
+	<qperson firstname="Andreas" lastname="Friedrich" position="Code Monkey" email="andreas.friedrich@uni-tuebingen.de" phone="0777111111"></qperson>
+	<qperson firstname="Sven" lastname="Nahnsen" position="P.I" title="Dr." email="sven.nahnsen@uni-tuebingen.de" phone="1823712823712837"></qperson>
+
+</persons>
