@@ -1,4 +1,4 @@
-package xml;
+package properties;
 
 public class Factor {
   

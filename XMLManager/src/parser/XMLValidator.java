@@ -17,7 +17,8 @@ import javax.xml.validation.*;
 
 import org.xml.sax.SAXException;
 
-import xml.Qproperties;
+import properties.Qproperties;
+
 
 public class XMLValidator {
 
@@ -60,12 +61,12 @@ public class XMLValidator {
 
   public static void main(String[] args) throws IOException, SAXException, JAXBException {
     XMLValidator x = new XMLValidator();
-    x.validate("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <qproperties>     <qfactors>         <qcategorical label=\"genotype\" value=\"WT\"/>   " +
+    x.validate("<?properties version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <qproperties>     <qfactors>         <qcategorical label=\"genotype\" value=\"WT\"/>   " +
     		" <qcategorical label=\"genotype\" value=\"brca1-\"/>   " +
         "<qcontinous label=\"age\" unit=\"d\" value=\"10\"/>     </qfactors> </qproperties>");
     File file = new File("examples/sample_prop_example.xml");
     x.validate(file);
-    JAXBContext jc = JAXBContext.newInstance("xml");
+    JAXBContext jc = JAXBContext.newInstance("properties");
 
     Unmarshaller unmarshaller = jc.createUnmarshaller();
     JAXBElement<Qproperties> root =
