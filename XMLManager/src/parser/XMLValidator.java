@@ -26,6 +26,21 @@ public class XMLValidator {
   public XMLValidator() throws MalformedURLException {
     schemaFile = new File("schemas/sample_prop_schema.xsd");
   }
+  
+  public boolean validate(String xml) throws SAXException, IOException {
+    SchemaFactory schemaFactory = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
+    Schema schema = schemaFactory.newSchema(schemaFile);
+    Validator validator = schema.newValidator();
+    try {
+      validator.validate(new StreamSource(new StringReader(xml)));
+      System.out.println(xml + " is valid");
+      return true;
+    } catch (SAXException e) {
+      System.out.println(xml + " is NOT valid");
+      System.out.println("Reason: " + e.getLocalizedMessage());
+      return false;
+    }
+  }
 
   public boolean validate(File xmlFile) throws IOException, SAXException {
     Source xml = new StreamSource(xmlFile);
@@ -45,6 +60,9 @@ public class XMLValidator {
 
   public static void main(String[] args) throws IOException, SAXException, JAXBException {
     XMLValidator x = new XMLValidator();
+    x.validate("<?xml version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?> <qproperties>     <qfactors>         <qcategorical label=\"genotype\" value=\"WT\"/>   " +
+    		" <qcategorical label=\"genotype\" value=\"brca1-\"/>   " +
+        "<qcontinous label=\"age\" unit=\"d\" value=\"10\"/>     </qfactors> </qproperties>");
     File file = new File("examples/sample_prop_example.xml");
     x.validate(file);
     JAXBContext jc = JAXBContext.newInstance("xml");

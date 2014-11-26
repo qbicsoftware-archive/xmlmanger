@@ -7,9 +7,9 @@ public class Factor {
   private String unit;
   private boolean hasUnit;
 
-  public Factor(String label, String val, String unit) {
+  public Factor(String label, String value, String unit) {
     this.label = label;
-    this.value = val;
+    this.value = value;
     this.unit = unit;
     if(unit.equals(""))
       hasUnit = false;
@@ -17,6 +17,10 @@ public class Factor {
       hasUnit = true;
   }
   
+  public Factor(String label, String value) {
+    this(label, value, "");
+  }
+
   public String toString() {
     return label+": "+value+unit;
   }

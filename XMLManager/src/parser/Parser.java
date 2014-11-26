@@ -46,8 +46,28 @@ public class Parser {
     return map;
   }
   
+  public List<Factor> getFactors(JAXBElement<xml.Qproperties> root) {
+    List<Factor> res = new ArrayList<Factor>();
+    if (root.getValue().getQfactors() != null) {
+      Qfactors factors = root.getValue().getQfactors();
+      for (Qcategorical cat : factors.getQcategorical()) {
+        res.add(new Factor(cat.getLabel(), cat.getValue()));
+      }
+      for (Qcontinous cont : factors.getQcontinous()) {
+        res.add(new Factor(cont.getLabel(), cont.getValue().toString(), cont.getUnit()));
+      }
+    }
+    if (root.getValue().getQproperty() != null) {
+      List<Qproperty> props = root.getValue().getQproperty();
+      for (Qproperty prop : props) {
+        res.add(new Factor(prop.getLabel(), prop.getValue().toString(), prop.getUnit()));
+      }
+    }
+    return res;
+  }
+
   public String addFactorsToXMLString(String xml, List<Factor> factors) throws JAXBException {
-    return toString(addFactors(parseXMLString(xml),factors));
+    return toString(addFactors(parseXMLString(xml), factors));
   }
 
   public JAXBElement<xml.Qproperties> addFactors(JAXBElement<xml.Qproperties> root,
@@ -75,6 +95,27 @@ public class Parser {
       }
     }
     return root;
+  }
+
+  public List<Factor> getFactorsFromXML(String xml) throws JAXBException {
+    List<Factor> res = new ArrayList<Factor>();
+    Qproperties props = parseXMLString(xml).getValue();
+    if (props != null) {
+      Qfactors fact = props.getQfactors();
+      if (fact != null) {
+        for (Qcategorical cat : fact.getQcategorical())
+          res.add(new Factor(cat.getLabel(), cat.getValue(), ""));
+        for (Qcontinous cont : fact.getQcontinous())
+          res.add(new Factor(cont.getLabel(), cont.getValue().toString(), cont.getUnit()));
+      }
+      List<Qproperty> pLis = props.getQproperty();
+      if (pLis != null) {
+        for (Qproperty prop : pLis) {
+          res.add(new Factor(prop.getLabel(), prop.getValue(), prop.getUnit()));
+        }
+      }
+    }
+    return res;
   }
 
   public JAXBElement<Qproperties> createXMLFromFactors(List<Factor> factors) throws JAXBException {
