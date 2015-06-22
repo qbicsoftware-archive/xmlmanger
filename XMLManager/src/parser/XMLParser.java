@@ -24,7 +24,7 @@ import properties.Qproperty;
 
 
 
-public class Parser {
+public class XMLParser {
 
   public Map<String, String> getMap(JAXBElement<properties.Qproperties> root) {
     Map<String, String> map = new HashMap<String, String>();
@@ -45,7 +45,7 @@ public class Parser {
     }
     return map;
   }
-  
+
   public List<Factor> getFactors(JAXBElement<properties.Qproperties> root) {
     List<Factor> res = new ArrayList<Factor>();
     if (root.getValue().getQfactors() != null) {
@@ -123,6 +123,8 @@ public class Parser {
   }
 
   public JAXBElement<properties.Qproperties> parseXMLString(String xml) throws JAXBException {
+    if (xml == null)
+      return getEmptyXML();
     JAXBContext jc = JAXBContext.newInstance("properties");
     Unmarshaller unmarshaller = jc.createUnmarshaller();
     JAXBElement<Qproperties> root =
@@ -135,8 +137,8 @@ public class Parser {
     Unmarshaller unmarshaller = jc.createUnmarshaller();
     JAXBElement<Qproperties> root =
         unmarshaller.unmarshal(new StreamSource(new StringReader(
-            "<?properties version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>" + "<qproperties>"
-                + "</qproperties>")), Qproperties.class);
+            "<?properties version=\"1.0\" encoding=\"UTF-8\" standalone=\"yes\"?>"
+                + "<qproperties>" + "</qproperties>")), Qproperties.class);
     return root;
   }
 
